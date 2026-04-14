@@ -52,23 +52,40 @@ public class Jira {
         throw new RuntimeException("Jira request failed: " + status + " - " + response.body());
     }
 
-    public String createIssue(String projectKey, String summary, String issueType) throws Exception {
-        Map<String, Object> payload = Map.of(
-                "fields",
-                Map.of(
-                        "project",
-                        Map.of("key", projectKey),
-                        "summary",
-                        summary,
-                        "issuetype",
-                        Map.of("name", issueType)
-                )
-        );
+    public String createIssue(String projectKey, String summary, String issueType, String description) throws Exception {
 
-        String json = objectMapper.writeValueAsString(payload);
+        String jsonbody = """
+                {
+                  "fields": {
+                    "project": {
+                      "key": "%s"
+                    },
+                    "summary": "%s",
+                    "description": {
+                      "type": "doc",
+                      "version": 1,
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "%s"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "issuetype": {
+                      "name": "%s"
+                    },
+                    "assignee": null
+                  }
+                }
+                """.formatted(projectKey, summary, description, issueType);
 
         HttpRequest request = baseRequest()
-                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .POST(HttpRequest.BodyPublishers.ofString(jsonbody))
                 .build();
 
         return sendRequest(request);

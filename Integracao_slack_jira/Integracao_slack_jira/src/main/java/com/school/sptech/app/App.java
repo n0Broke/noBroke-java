@@ -32,7 +32,8 @@ public class App {
         String response = jira.createIssue(
                 "NOB",
                 "CPU Acima do Limite Crítico",
-                "Task"
+                "task",
+                "SRV-PROD-API-01 - Uso de CPU atingiu 95%, acima do limite de 90%"
         );
 
             System.out.println(response);
