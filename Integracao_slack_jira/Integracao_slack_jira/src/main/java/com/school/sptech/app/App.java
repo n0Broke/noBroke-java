@@ -13,7 +13,7 @@ public class App {
 
 
         json.put("text", """
-                CPU Acima do Limite Crítico! :alert:\s
+                CPU Acima do Limite Crítico! ⚠️\s
                 CPU: 95%\s
                 LIMITE: 90%
                 SERVIDOR: SRV-PROD-API-01
