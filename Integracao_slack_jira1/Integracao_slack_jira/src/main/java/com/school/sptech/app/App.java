@@ -29,12 +29,11 @@ public class App {
             String apiToken = env.APITOKEN.getValor();
             Jira jira = new Jira(baseUrl, email, apiToken);
 
-        String response = jira.createIssue(
+       String response = jira.createIssue(
                 "NOB",
                 "CPU Acima do Limite Crítico",
-                "task",
-                "SRV-PROD-API-01 - Uso de CPU atingiu 95%, acima do limite de 90%"
-        );
+                "Task"
+       );
 
             System.out.println(response);
     }
