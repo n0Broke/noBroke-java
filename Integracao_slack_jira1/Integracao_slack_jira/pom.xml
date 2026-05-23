@@ -28,6 +28,12 @@
             <version>2.21.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sptech.school</groupId>
+            <artifactId>Integracao_slack_jira</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
