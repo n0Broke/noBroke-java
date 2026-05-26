@@ -142,13 +142,24 @@ public class RelatorioHandler implements HttpHandler{
 
             byte[] pdfBytes = baos.toByteArray();
 
+            // salva o relatorio localmente
+            String nomeArquivo = "relatorio-produtividade-" +
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm")) + ".pdf";
+
+            java.nio.file.Files.write(java.nio.file.Paths.get(nomeArquivo), pdfBytes);
+            System.out.println("PDF salvo em: " + java.nio.file.Paths.get(nomeArquivo).toAbsolutePath());
+            System.out.println("PDF salvo localmente: " + nomeArquivo);
+
+
             exchange.getResponseHeaders().add("Content-Type", "application/pdf");
-            exchange.getResponseHeaders().add("Content-Disposition", "attachment; filename=\"relatorio-membros.pdf\"");
+            exchange.getResponseHeaders().add("Content-Disposition", "attachment; filename=\"relatorio-produtividade.pdf\"");
             exchange.sendResponseHeaders(200, pdfBytes.length);
 
             OutputStream os = exchange.getResponseBody();
             os.write(pdfBytes);
             os.close();
+
+
         } catch (Exception e) {
             e.printStackTrace();
             exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");

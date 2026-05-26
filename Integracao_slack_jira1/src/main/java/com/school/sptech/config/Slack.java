@@ -14,12 +14,12 @@ import org.json.JSONObject;
 public class Slack {
 
     private static HttpClient client = HttpClient.newHttpClient();
-    private static final String URL = "https://hooks.slack.com/services/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";
+    private static final String URL = "";
 
     public static void sendMessage(JSONObject content) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder(
                         URI.create(URL))
-                .header("accept", "application/json")
+                .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(content.toString()))
                 .build();
 
@@ -28,5 +28,7 @@ public class Slack {
         System.out.println(String.format("Status: %s", response.statusCode()));
 
         System.out.println(String.format("Response: %s", response.body()));
+
+
     }
 }

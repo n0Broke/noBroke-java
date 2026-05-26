@@ -9,13 +9,12 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Base64;
-import java.util.Map;
 
 public class Jira {
 
-    private final String baseUrl;
-    private final String authHeader;
-    private final HttpClient httpClient;
+    private static String baseUrl = "";
+    private static String authHeader = "";
+    private static HttpClient httpClient = null;
     private final ObjectMapper objectMapper;
 
     public Jira(String baseUrl, String email, String apiToken) {
@@ -36,7 +35,7 @@ public class Jira {
         this.objectMapper = new ObjectMapper();
     }
 
-    private HttpRequest.Builder baseRequest() {
+    private static HttpRequest.Builder baseRequest() {
         return HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + "/rest/api/3/issue"))
                 .timeout(Duration.ofSeconds(60))
@@ -45,7 +44,7 @@ public class Jira {
                 .header("Accept", "application/json");
     }
 
-    private String sendRequest(HttpRequest request) throws Exception {
+    private static String sendRequest(HttpRequest request) throws Exception {
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         int status = response.statusCode();
@@ -57,7 +56,7 @@ public class Jira {
         throw new RuntimeException("Jira request failed: " + status + " - " + response.body());
     }
 
-    public String createIssue(String projectKey, String summary, String issueType, String description) throws Exception {
+    public static String createIssue(String projectKey, String summary, String issueType, String description) throws Exception {
 
         String jsonbody = """
                 {
@@ -97,7 +96,7 @@ public class Jira {
     }
 
     // metodo que vai retornar uma string da resposta do jira
-    public String searchIssues(String jql) throws Exception {
+    public static String searchIssues(String jql) throws Exception {
         System.out.println("Executando search issues");
 
         // endpoint
