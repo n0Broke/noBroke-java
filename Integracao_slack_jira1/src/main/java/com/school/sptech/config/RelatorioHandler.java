@@ -40,7 +40,7 @@ public class RelatorioHandler implements HttpHandler{
                     "",
                     ""
             );
-            String respostaJira = jiraClient.searchIssuesCampo("project = TES AND assignee is not EMPTY", "assignee", "status");
+            String respostaJira = jiraClient.searchIssuesCampo("project = NOB AND assignee is not EMPTY", "assignee", "status");
 
             List<String> nomes = new ArrayList<>();
             List<Integer> resolvido = new ArrayList<>();

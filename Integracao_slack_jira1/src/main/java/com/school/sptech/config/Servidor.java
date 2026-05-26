@@ -49,8 +49,8 @@ public class Servidor {
                         ""
                 );
 
-                // aqui ele filtra as tarefas do projeto TES que ja foram concluidos, a variavel respostaJira vai guardar o texto que o jira ira devolver
-                String respostaJira = jiraClient.searchIssues("project = NOB AND status = Feito");
+                // aqui ele filtra as tarefas do projeto NOB que ja foram concluidos, a variavel respostaJira vai guardar o texto que o jira ira devolver
+                String respostaJira = jiraClient.searchIssues("project = NOB AND status = 'Feito'");
 
                 // contando os tickets
                 // basicamente ele busca a palavra id e conta quantas vezes ela aparece
@@ -111,7 +111,7 @@ public class Servidor {
                         "",
                         ""
                 );
-                String respostaJira = jiraClient.searchIssues("project = NOB AND status != Feito");
+                String respostaJira = jiraClient.searchIssues("project = NOB AND status != 'Feito'");
 
 
                 int total = 0;
@@ -164,7 +164,7 @@ public class Servidor {
                         ""
                 );
 
-                String respostaJira = jiraClient.searchIssuesData("project = NOB AND status = Feito");
+                String respostaJira = jiraClient.searchIssuesData("project = NOB AND status = 'Feito'");
                 System.out.println("Resposta SLA " + respostaJira);
 
                 int totalCards = 0;
@@ -251,7 +251,6 @@ public class Servidor {
                         "",
                         ""
                 );
-
                 String respostaJira = jiraClient.searchIssuesCampo("project = NOB AND assignee is not EMPTY", "assignee", "status");
                 System.out.println("JSON COMPLETO: " + respostaJira);
 
@@ -379,7 +378,7 @@ public class Servidor {
                         ""
                 );
 
-                String respostaJira = jiraClient.searchIssuesData("project = NOB AND status = Feito");
+                String respostaJira = jiraClient.searchIssuesData("project = NOB AND status = 'Feito'");
 
                 List<Long> tempos = new ArrayList<>();
 
@@ -456,5 +455,3 @@ public class Servidor {
         }
     }
 }
-
-

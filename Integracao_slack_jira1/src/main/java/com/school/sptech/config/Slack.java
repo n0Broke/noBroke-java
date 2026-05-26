@@ -5,20 +5,19 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
 import org.json.JSONObject;
 
-/**
- *
- * @author Diego Brito <diego.lima@bandtec.com.br>
- */
 public class Slack {
 
     private static HttpClient client = HttpClient.newHttpClient();
-    private static final String URL = "";
+
+    // Cole aqui o seu webhook do Slack
+    private static final String WEBHOOK_URL = "";
 
     public static void sendMessage(JSONObject content) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder(
-                        URI.create(URL))
+                        URI.create(WEBHOOK_URL))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(content.toString()))
                 .build();
@@ -26,9 +25,6 @@ public class Slack {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         System.out.println(String.format("Status: %s", response.statusCode()));
-
         System.out.println(String.format("Response: %s", response.body()));
-
-
     }
 }

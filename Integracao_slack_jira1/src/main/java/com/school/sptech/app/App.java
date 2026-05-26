@@ -12,6 +12,12 @@ public class App {
 
         Conexao.testarConexao();
 
+        Jira jiraService = new Jira(
+                "",
+                "",
+                ""
+        );
+
         // Loop contínuo de monitoramento em segundo plano
         while (true) {
             System.out.println("\n=== Iniciando Varredura: " + LocalDateTime.now() + " ===");
@@ -153,7 +159,7 @@ public class App {
                     mensagemRede.put("text", rede.getMensagemSlack());
                     Slack.sendMessage(mensagemRede);
 
-                    String responseRede = Jira.createIssue(
+                    String responseRede = jiraService.createIssue(
                             "NOB",
                             rede.getSummary(),
                             "Task",
